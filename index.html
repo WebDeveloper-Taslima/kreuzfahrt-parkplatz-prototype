@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KreuzfahrtParkplatz.de – Klickbarer Prototyp & Developer Handoff</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="downloaded_assets/06_Logos/Kreuzfahrtparkplatz_de_Logo.png">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       PROTOTYPE CONTROL BAR (VIEWPORT SWITCHER & FIGMA DEV INSPECT BAR)
+       ========================================================================== -->
+  <header class="proto-toolbar" id="protoToolbar">
+    <div class="proto-brand">
+      <span>KreuzfahrtParkplatz.de</span>
+      <span class="proto-badge">Figma Prototyp v2.4</span>
+    </div>
+
+    <!-- Device Viewport Switcher -->
+    <div class="proto-device-group">
+      <button class="proto-device-btn active" data-device="desktop" title="Desktop Ansicht (100% / 1440px)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        Desktop (1440px)
+      </button>
+      <button class="proto-device-btn" data-device="laptop" title="Laptop Ansicht (1240px)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M2 18h20"></path></svg>
+        Laptop (1240px)
+      </button>
+      <button class="proto-device-btn" data-device="tablet" title="Tablet Ansicht (768px)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        Tablet (768px)
+      </button>
+      <button class="proto-device-btn" data-device="mobile" title="Smartphone Ansicht (390px)">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        Mobile (390px)
+      </button>
+    </div>
+
+    <!-- Screen Jump Selector -->
+    <div class="proto-screen-select-wrap">
+      <span style="font-size: 11px; color: #94a3b8; font-weight: 600;">SEITE:</span>
+      <select class="proto-screen-select" id="protoScreenSelect">
+        <option value="screen-home">01 · Startseite (Hauptportal)</option>
+        <option value="screen-kiel-search">02 · Kiel Suchergebnisse & Filter</option>
+        <option value="screen-detail-shuttle">03 · Detailseite: Port Parking Kiel (Shuttle)</option>
+        <option value="screen-detail-valet">04 · Detailseite: Kiel Valet Service (Valet)</option>
+        <option value="screen-checkout-step1">05 · Bestellablauf Schritt 1 (Daten & Fahrzeug)</option>
+        <option value="screen-checkout-step2">06 · Bestellablauf Schritt 2 (Zahlung & Schutz)</option>
+        <option value="screen-checkout-step3">07 · Bestellablauf Schritt 3 (Bestätigung KP-2027)</option>
+        <option value="screen-affiliate">08 · Affiliate-Partner Portal</option>
+        <option value="screen-partner-b2b">09 · Partner werden (B2B Betreiber)</option>
+        <option value="screen-seo-terminal">10 · SEO Landingpage: Kiel Ostseekai</option>
+      </select>
+    </div>
+
+    <!-- Developer Actions -->
+    <div class="proto-actions">
+      <button class="proto-btn-action js-open-email-modal" title="E-Mail Bestätigung ansehen">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        E-Mail Vorlage
+      </button>
+      <button class="proto-btn-action" id="protoDevSpecsToggle" title="Figma & Developer Specs einblenden">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        Figma / Dev Specs
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       VIEWPORT SIMULATOR STAGE
+       ========================================================================== -->
+  <div class="proto-stage" id="protoStage">
+    <div class="proto-viewport" id="protoViewport" data-device="desktop">
+
+      <!-- ==========================================================================
+           GLOBAL SITE HEADER
+           ========================================================================== -->
+      <header class="site-header">
+        <!-- Top Info Bar -->
+        <div class="site-top-bar">
+          <div class="container site-top-bar-inner">
+            <div class="top-bar-highlights">
+              <div class="top-bar-item">
+                <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                <span>Geprüfte Parkplatz-Betreiber an deutschen Häfen</span>
+              </div>
+              <div class="top-bar-item">
+                <svg width="13" height="13" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                <span>100% Storno-Garantie bis 24h vor Anreise</span>
+              </div>
+            </div>
+            <div class="top-bar-contact">
+              <span>Telefon-Service: <strong>0431 / 99 77 00</strong> (Mo–So 07:00–21:00)</span>
+              <span>DE | EUR €</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Navigation Bar -->
+        <div class="site-nav-bar">
+          <div class="container site-nav-inner">
+            <a href="#" class="site-logo" data-goto="screen-home">
+              <img src="downloaded_assets/06_Logos/Kreuzfahrtparkplatz_de_Logo.png" alt="KreuzfahrtParkplatz.de" onerror="this.src='downloaded_assets/06_Logos/Kreuzfahrt_Parkplatz_Logo.png'">
+            </a>
+
+            <nav>
+              <ul class="site-nav-links">
+                <li><a href="#" class="nav-link active" data-goto="screen-home">Startseite</a></li>
+                <li><a href="#" class="nav-link" data-goto="screen-kiel-search">Häfen & Terminals</a></li>
+                <li><a href="#" class="nav-link" data-goto="screen-seo-terminal">Kiel Ostseekai</a></li>
+                <li><a href="#" class="nav-link" data-goto="screen-affiliate">Affiliate-Programm</a></li>
+                <li><a href="#" class="nav-link" data-goto="screen-partner-b2b">Partner werden</a></li>
+              </ul>
+            </nav>
+
+            <div class="site-nav-actions">
+              <button class="btn btn-primary btn-sm" data-goto="screen-kiel-search">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Parkplatz buchen
+              </button>
+              <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menü öffnen" title="Menü öffnen">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Dropdown Navigation Drawer -->
+          <div class="mobile-nav-drawer" id="mobileNavDrawer">
+            <ul class="mobile-nav-links">
+              <li><a href="#" class="mobile-nav-link active" data-goto="screen-home">Startseite</a></li>
+              <li><a href="#" class="mobile-nav-link" data-goto="screen-kiel-search">Häfen & Terminals</a></li>
+              <li><a href="#" class="mobile-nav-link" data-goto="screen-seo-terminal">Kiel Ostseekai</a></li>
+              <li><a href="#" class="mobile-nav-link" data-goto="screen-affiliate">Affiliate-Programm</a></li>
+              <li><a href="#" class="mobile-nav-link" data-goto="screen-partner-b2b">Partner werden</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- ==========================================================================
+           SCREEN 1: STARTSEITE (MAIN LANDING PAGE)
+           ========================================================================== -->
+      <main class="app-screen active" id="screen-home">
+        <!-- Hero Section with Search Engine -->
+        <section class="hero-section">
+          <div class="container">
+            <div class="hero-headline-wrap">
+              <div class="hero-badge-wrap">
+                <span class="badge badge-yellow">Deutschlands Nr. 1 Vergleichsportal für Kreuzfahrtparkplätze</span>
+              </div>
+              <h1 class="hero-title">Entspannt in die Kreuzfahrt starten. <span>Parkplatz buchen, Schiff betreten.</span></h1>
+              <p class="hero-subtitle">Vergleichen Sie geprüfte Parkplätze an deutschen Kreuzfahrthäfen – mit kostenlosem Shuttle-Service oder bequemem Valet-Parking direkt am Terminal.</p>
+            </div>
+
+            <!-- Interactive Search Box -->
+            <div class="search-card-outer">
+              <div class="search-box-card">
+                <form id="heroSearchForm">
+                  <div class="search-fields-grid">
+                    <div class="search-input-field">
+                      <label class="search-label" for="searchPortSelect">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7 11.5 7.4 11.8a1 1 0 0 0 1.2 0C13 21.5 20 15.4 20 10a8 8 0 0 0-8-8z"></path></svg>
+                        Abfahrtshafen
+                      </label>
+                      <select class="search-field-control" id="searchPortSelect" required>
+                        <option value="Kiel" selected>Kiel (Ostsee)</option>
+                        <option value="Hamburg">Hamburg (Nordsee/Elbe)</option>
+                        <option value="Warnemünde">Warnemünde / Rostock</option>
+                        <option value="Bremerhaven">Bremerhaven</option>
+                      </select>
+                    </div>
+
+                    <div class="search-input-field">
+                      <label class="search-label" for="searchStartDate">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Anreise (Abfahrt)
+                      </label>
+                      <input type="date" class="search-field-control" id="searchStartDate" value="2027-06-12" required>
+                    </div>
+
+                    <div class="search-input-field">
+                      <label class="search-label" for="searchEndDate">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        Rückkehr (Ankunft)
+                      </label>
+                      <input type="date" class="search-field-control" id="searchEndDate" value="2027-06-19" required>
+                    </div>
+
+                    <div class="search-input-field">
+                      <label class="search-label" for="searchShipSelect">
+                        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                        Kreuzfahrtschiff
+                      </label>
+                      <select class="search-field-control" id="searchShipSelect">
+                        <option value="Mein Schiff 1 (TUI Cruises)" selected>Mein Schiff 1 (TUI)</option>
+                        <option value="Mein Schiff 6 (TUI Cruises)">Mein Schiff 6 (TUI)</option>
+                        <option value="AIDAprima (AIDA Cruises)">AIDAprima (AIDA)</option>
+                        <option value="AIDAnova (AIDA Cruises)">AIDAnova (AIDA)</option>
+                        <option value="MSC Euribia (MSC Cruises)">MSC Euribia (MSC)</option>
+                        <option value="Alle Schiffe">Alle Schiffe</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <button type="submit" class="btn btn-search-submit">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        Parkplatz finden
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Trust Badges Bar with Allianz Partner -->
+        <section class="trust-bar-section">
+          <div class="container trust-bar-grid">
+            <div class="trust-item">
+              <div class="trust-icon">✓</div>
+              <div>
+                <div class="trust-text-strong">100% Storno-Garantie</div>
+                <div class="trust-text-sub">Kostenlos stornieren bis 24h vor Anreise</div>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">★</div>
+              <div>
+                <div class="trust-text-strong">4.9 / 5.0 Kundenzufriedenheit</div>
+                <div class="trust-text-sub">Über 45.000 vermittelte Buchungen</div>
+              </div>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">🛡️</div>
+              <div>
+                <div class="trust-text-strong">Geprüfte Sicherheit</div>
+                <div class="trust-text-sub">Eingezäunt, videoüberwacht & beleuchtet</div>
+              </div>
+            </div>
+            <div class="allianz-trust-badge">
+              <img src="downloaded_assets/07_Logos_und_Bilder/Allianz.png" alt="Allianz Partners" onerror="this.style.display='none'">
+              <div>
+                <div style="font-size: 11px; font-weight: 800; color: #0c2340;">ALLIANZ PARTNER</div>
+                <div style="font-size: 10px; color: #64748b;">Rundum-Sorglos-Schutz buchbar</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Port Cards Section -->
+        <section class="section-ports">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-pretitle">Alle Abfahrtshäfen im Vergleich</div>
+              <h2 class="section-title">Wählen Sie Ihren Kreuzfahrthafen</h2>
+              <p class="section-desc">Geprüfte Parkplatz-Anbieter an allen führenden deutschen Abfahrtshäfen.</p>
+            </div>
+
+            <div class="ports-card-grid">
+              <!-- Kiel -->
+              <div class="port-card" data-goto="screen-kiel-search">
+                <div class="port-card-img-wrap" style="background: linear-gradient(135deg, #0c2340 0%, #1d4a7d 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                  <div style="text-align: center;">
+                    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"></path><path d="M14 7h7v7"></path></svg>
+                    <div style="font-weight: 800; font-size: 16px; margin-top: 6px;">Hafen Kiel</div>
+                  </div>
+                  <span class="port-badge-price">ab 49,00 € / Woche</span>
+                </div>
+                <div class="port-card-content">
+                  <h3 class="port-card-name">Kiel (Ostsee)</h3>
+                  <div class="port-card-terminals">Ostseekai · Schwedenkai · Norwegenkai · Ostuferhafen</div>
+                  <p style="font-size: 12px; color: #64748b;">Beliebtester Hafen für Nordland- & Ostseekreuzfahrten von AIDA & Mein Schiff.</p>
+                  <div class="port-card-footer">
+                    <span>5 geprüfte Anbieter</span>
+                    <span>Angebote ansehen →</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hamburg -->
+              <div class="port-card" data-goto="screen-kiel-search">
+                <div class="port-card-img-wrap" style="background: linear-gradient(135deg, #1b3a5b 0%, #29537d 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                  <div style="text-align: center;">
+                    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                    <div style="font-weight: 800; font-size: 16px; margin-top: 6px;">Hafen Hamburg</div>
+                  </div>
+                  <span class="port-badge-price">ab 59,00 € / Woche</span>
+                </div>
+                <div class="port-card-content">
+                  <h3 class="port-card-name">Hamburg (Elbe)</h3>
+                  <div class="port-card-terminals">Steinwerder · Altona · HafenCity</div>
+                  <p style="font-size: 12px; color: #64748b;">Ganzjährig Kreuzfahrten mit AIDA, MSC, Queen Mary 2 & Costa.</p>
+                  <div class="port-card-footer">
+                    <span>8 geprüfte Anbieter</span>
+                    <span>Angebote ansehen →</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Warnemünde -->
+              <div class="port-card" data-goto="screen-kiel-search">
+                <div class="port-card-img-wrap" style="background: linear-gradient(135deg, #0e3746 0%, #1c5d77 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                  <div style="text-align: center;">
+                    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 3v18"></path><path d="M5 10l7-7 7 7"></path></svg>
+                    <div style="font-weight: 800; font-size: 16px; margin-top: 6px;">Warnemünde</div>
+                  </div>
+                  <span class="port-badge-price">ab 55,00 € / Woche</span>
+                </div>
+                <div class="port-card-content">
+                  <h3 class="port-card-name">Warnemünde / Rostock</h3>
+                  <div class="port-card-terminals">Cruise Center Terminal 7 & 8</div>
+                  <p style="font-size: 12px; color: #64748b;">Direkt an der Ostsee mit kurzen Wegen und exzellentem Shuttle-Netzwerk.</p>
+                  <div class="port-card-footer">
+                    <span>4 geprüfte Anbieter</span>
+                    <span>Angebote ansehen →</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bremerhaven -->
+              <div class="port-card" data-goto="screen-kiel-search">
+                <div class="port-card-img-wrap" style="background: linear-gradient(135deg, #1c2b3d 0%, #34495e 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                  <div style="text-align: center;">
+                    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <div style="font-weight: 800; font-size: 16px; margin-top: 6px;">Bremerhaven</div>
+                  </div>
+                  <span class="port-badge-price">ab 52,00 € / Woche</span>
+                </div>
+                <div class="port-card-content">
+                  <h3 class="port-card-name">Bremerhaven</h3>
+                  <div class="port-card-terminals">Columbus Cruise Center (CCCB)</div>
+                  <p style="font-size: 12px; color: #64748b;">Ausgangspunkt für viele Phoenix Reisen & Mein Schiff Kreuzfahrten.</p>
+                  <div class="port-card-footer">
+                    <span>3 geprüfte Anbieter</span>
+                    <span>Angebote ansehen →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Shuttle vs Valet Comparison Section -->
+        <section class="section-comparison">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-pretitle">Welcher Service passt zu Ihnen?</div>
+              <h2 class="section-title">Shuttle-Transfer vs. Valet-Parking</h2>
+              <p class="section-desc">Beide Optionen garantieren höchste Sicherheit für Ihr Fahrzeug – wählen Sie nach Ihrem Komfortbedarf.</p>
+            </div>
+
+            <div class="comp-cards-grid">
+              <!-- Shuttle Card -->
+              <div class="comp-card highlighted">
+                <div class="comp-card-badge">
+                  <span class="badge badge-yellow">Preis-Leistungs-Sieger</span>
+                </div>
+                <div class="comp-header">
+                  <div class="comp-icon-box">🚌</div>
+                  <div>
+                    <h3 class="comp-title">Parken mit Shuttle-Transfer</h3>
+                    <div class="comp-subtitle">Günstig & flexibel für die ganze Familie</div>
+                  </div>
+                </div>
+                <ul class="comp-features-list">
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Sie parken Ihr Auto selbst auf dem gesicherten Parkplatz</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> <strong>Autoschlüssel behalten</strong> möglich (bei Port Parking Kiel)</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Kostenloser klimatisierter Shuttlebus direkt ans Schiff</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Transferzeit nur ca. 5 bis 8 Minuten</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Gepäcktransport inklusive</li>
+                </ul>
+                <div class="comp-footer-price">
+                  <div>
+                    <div class="price-text-sm">Preise ab</div>
+                    <div class="price-val">139,00 € <span style="font-size: 13px; font-weight: normal; color: #64748b;">/ 8 Tage</span></div>
+                  </div>
+                  <button class="btn btn-primary" data-goto="screen-detail-shuttle" data-service="shuttle">
+                    Shuttle-Angebote →
+                  </button>
+                </div>
+              </div>
+
+              <!-- Valet Card -->
+              <div class="comp-card">
+                <div class="comp-card-badge">
+                  <span class="badge badge-blue">Maximaler Komfort</span>
+                </div>
+                <div class="comp-header">
+                  <div class="comp-icon-box">🏎️</div>
+                  <div>
+                    <h3 class="comp-title">Valet-Parking (Terminal-Übergabe)</h3>
+                    <div class="comp-subtitle">Fahrzeug direkt am Schiff abgeben & abholen</div>
+                  </div>
+                </div>
+                <ul class="comp-features-list">
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> <strong>Kein Shuttle erforderlich:</strong> Anfahrt direkt zum Terminal</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Übergabe an geprüften & versicherten Mitarbeiter</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Digitales Zustandsprotokoll & Tachostand-Dokumentation</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Sicherer Tiefgaragen- / Hallenstellplatz inklusive</li>
+                  <li><svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Nach Rückkehr steht Ihr Wagen fahrbereit am Ausgang</li>
+                </ul>
+                <div class="comp-footer-price">
+                  <div>
+                    <div class="price-text-sm">Preise ab</div>
+                    <div class="price-val">179,00 € <span style="font-size: 13px; font-weight: normal; color: #64748b;">/ 8 Tage</span></div>
+                  </div>
+                  <button class="btn btn-secondary" data-goto="screen-detail-valet" data-service="valet">
+                    Valet-Angebote →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 Steps Section -->
+        <section class="section-steps">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-pretitle">Kinderleichte Abwicklung</div>
+              <h2 class="section-title">So funktioniert die Buchung</h2>
+              <p class="section-desc">In nur 3 einfachen Schritten sichern Sie sich Ihren garantierten Parkplatz am Kreuzfahrthafen.</p>
+            </div>
+
+            <div class="steps-grid">
+              <div class="step-card">
+                <div class="step-number-circle">1</div>
+                <h3 class="step-title">Vergleichen & Auswählen</h3>
+                <p class="step-desc">Geben Sie Ihren Abfahrtshafen und Reisedaten ein. Vergleichen Sie Preise, Entfernungen und Kundenbewertungen in Echtzeit.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number-circle">2</div>
+                <h3 class="step-title">Bequem online buchen</h3>
+                <p class="step-desc">Reservieren Sie Ihren Wunsch-Stellplatz ohne versteckte Gebühren. Zahlen Sie sicher per PayPal, Kreditkarte oder Lastschrift.</p>
+              </div>
+              <div class="step-card">
+                <div class="step-number-circle">3</div>
+                <h3 class="step-title">Entspannt anreisen & ablegen</h3>
+                <p class="step-desc">Erhalten Sie sofort Ihre Buchungsbestätigung mit QR-Code und Wegbeschreibung. Der Shuttle bringt Sie pünktlich zum Terminal.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section-faq">
+          <div class="container">
+            <div class="section-header">
+              <div class="section-pretitle">Fragen & Antworten</div>
+              <h2 class="section-title">Häufig gestellte Fragen</h2>
+              <p class="section-desc">Alles Wichtige rund um Buchung, Shuttle, Stornierung und Sicherheit.</p>
+            </div>
+
+            <div class="faq-list">
+              <div class="faq-item open">
+                <button class="faq-question">
+                  <span>Bis wann kann ich meine Parkplatzbuchung kostenlos stornieren?</span>
+                  <span class="faq-icon-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                  Sie können alle Standard-Buchungen auf KreuzfahrtParkplatz.de bis zu <strong>24 Stunden vor Ihrem gebuchten Anreisezeitpunkt zu 100% kostenfrei stornieren</strong>. Die Rückerstattung erfolgt automatisch über dieselbe Zahlungsmethode.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span>Muss ich meinen Autoschlüssel beim Anbieter abgeben?</span>
+                  <span class="faq-icon-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                  Bei <strong>Port Parking Kiel (Shuttle-Service)</strong> behalten Sie Ihren Autoschlüssel während der gesamten Reise bei sich! Bei Valet-Parking ist die Schlüsselabgabe betriebsbedingt erforderlich, da Ihr Fahrzeug für Sie im gesicherten Parkhaus abgestellt wird.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span>Wie funktioniert der Shuttle-Transfer zum Kreuzfahrtterminal?</span>
+                  <span class="faq-icon-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                  Nach Ihrer Ankunft am Parkplatz laden Sie Ihr Gepäck direkt in den klimatisierten Shuttlebus um. Der Shuttle fährt bedarfsgerecht ohne lange Wartezeiten und bringt Sie in nur ca. 5 bis 8 Minuten direkt vor den Eingang Ihres Kreuzfahrtterminals (z.B. Ostseekai Kiel).
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  <span>Was passiert bei einer Schiffsverspätung bei der Rückkehr?</span>
+                  <span class="faq-icon-arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                  Unsere Partnerbetreiber überwachen die offiziellen Schiffsankunftszeiten der Reedereien. Auch bei Verspätungen steht der Shuttlebus am Terminal für Sie bereit. Es entstehen keine zusätzlichen Wartegebühren bei wetter- oder verkehrsbedingten Verspätungen.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 2: KIEL SUCHERGEBNISSE & FILTER
+           ========================================================================== -->
+      <main class="app-screen" id="screen-kiel-search">
+        <!-- Subheader with Search Summary -->
+        <div class="results-subbar">
+          <div class="container results-subbar-inner">
+            <div>
+              <div class="results-meta-title">Parkplätze für Hafen Kiel (Ostsee)</div>
+              <div class="results-meta-details">
+                12.06.2027 – 19.06.2027 (8 Tage) · Mein Schiff 1 (TUI Cruises) · Ostseekai Kiel
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary btn-sm" data-goto="screen-home">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Suche anpassen
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="container results-layout-grid">
+          <!-- Left Sidebar Filters -->
+          <aside class="filter-sidebar">
+            <div class="filter-card">
+              <form id="kielFilterForm">
+                <div class="filter-section-title">
+                  <span>Filterkriterien</span>
+                  <span style="font-size: 11px; color: var(--color-navy-700); cursor: pointer;" id="resetAllFiltersLink">Zurücksetzen</span>
+                </div>
+
+                <!-- Price Slider -->
+                <div class="form-group">
+                  <label class="form-label">Max. Gesamtpreis: <strong id="priceSliderVal">220 €</strong></label>
+                  <input type="range" class="price-range-slider" id="filterPriceSlider" min="90" max="250" step="5" value="220">
+                  <div class="price-range-display">
+                    <span>90 €</span>
+                    <span>250 €</span>
+                  </div>
+                </div>
+
+                <!-- Service Type -->
+                <div class="form-group" style="margin-top: 18px;">
+                  <label class="form-label">Parkplatz-Kategorie</label>
+                  <div class="filter-group">
+                    <label class="checkbox-item">
+                      <input type="checkbox" id="filterTypeShuttle" checked>
+                      <span>Shuttle-Service (Transfer)</span>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" id="filterTypeValet" checked>
+                      <span>Valet-Parking (am Schiff)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Features -->
+                <div class="form-group" style="margin-top: 18px;">
+                  <label class="form-label">Ausstattung & Merkmale</label>
+                  <div class="filter-group">
+                    <label class="checkbox-item">
+                      <input type="checkbox" id="filterFeatureCovered">
+                      <span>Überdacht / Parkhaus</span>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" id="filterFeatureVideo" checked>
+                      <span>24/7 Videoüberwachung</span>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" id="filterFeatureKeyKeep" checked>
+                      <span>Schlüssel behalten</span>
+                    </label>
+                    <label class="checkbox-item">
+                      <input type="checkbox" id="filterFeatureEcharge">
+                      <span>E-Auto Ladestation</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Distance -->
+                <div class="form-group" style="margin-top: 18px;">
+                  <label class="form-label">Entfernung zum Terminal</label>
+                  <div class="filter-group">
+                    <label class="radio-item">
+                      <input type="radio" name="filterDist" value="all" checked>
+                      <span>Alle Entfernungen</span>
+                    </label>
+                    <label class="radio-item">
+                      <input type="radio" name="filterDist" value="under5">
+                      <span>Unter 5 km (unter 8 Min.)</span>
+                    </label>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Trust Helper Banner -->
+            <div class="card card-padded" style="background: #f1f5fa; text-align: center;">
+              <div style="font-weight: 700; font-size: 13px; color: #0c2340; margin-bottom: 6px;">Fragen zur Buchung?</div>
+              <p style="font-size: 12px; color: #64748b; margin-bottom: 10px;">Unsere Hotline unterstützt Sie gerne bei der Auswahl des passenden Parkplatzes.</p>
+              <a href="tel:0431997700" style="font-weight: 800; font-size: 15px; color: var(--color-navy-900);">0431 / 99 77 00</a>
+            </div>
+          </aside>
+
+          <!-- Main Results Listings -->
+          <section>
+            <div class="results-header-bar">
+              <div class="results-count">
+                <span id="resultsMatchCount">5</span> Parkplätze in Kiel verfügbar
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 13px; color: #64748b;">Sortieren:</span>
+                <select class="results-sort-select" id="resultsSortSelect">
+                  <option value="featured">Empfehlung der Redaktion</option>
+                  <option value="price-asc">Preis (günstigste zuerst)</option>
+                  <option value="price-desc">Preis (höchste zuerst)</option>
+                  <option value="rating">Beste Bewertung</option>
+                  <option value="dist">Geringste Entfernung</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Dynamic Listings Container -->
+            <div class="results-cards-list" id="searchResultsCardsList">
+              <!-- Rendered via app.js -->
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 3: DETAILSEITE SHUTTLE (PORT PARKING KIEL)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-detail-shuttle">
+        <div class="detail-hero-bar">
+          <div class="container">
+            <div class="breadcrumbs">
+              <a href="#" data-goto="screen-home">Startseite</a>
+              <span>›</span>
+              <a href="#" data-goto="screen-kiel-search">Kiel</a>
+              <span>›</span>
+              <span style="color: var(--color-navy-900); font-weight: 600;">Port Parking Kiel</span>
+            </div>
+            <div class="detail-headline-row">
+              <div>
+                <h1 class="detail-title">Port Parking Kiel – Sicherer Parkplatz mit Shuttle-Transfer</h1>
+                <div class="detail-tags-row">
+                  <span class="badge badge-featured">Testsieger 2027</span>
+                  <span class="badge badge-green">Kostenlos stornierbar</span>
+                  <span class="badge badge-blue">Schlüssel behalten</span>
+                  <span style="font-size: 13px; color: #f59e0b; font-weight: 700;">★ 4.9 (1.240 Bewertungen)</span>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-outline btn-sm" data-goto="screen-kiel-search">← Zurück zur Übersicht</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container detail-layout-grid">
+          <!-- Main Detail Column -->
+          <div>
+            <!-- Image Gallery Mockup -->
+            <div class="gallery-grid">
+              <div class="gallery-main" style="background: linear-gradient(135deg, #0c2340 0%, #1e4a7d 100%); display: flex; align-items: center; justify-content: center; color: white;">
+                <div style="text-align: center; padding: 20px;">
+                  <svg width="60" height="60" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                  <div style="font-weight: 800; font-size: 18px; margin-top: 8px;">Port Parking Kiel – Areal Uferstraße</div>
+                  <div style="font-size: 12px; opacity: 0.9;">Eingezäunt, beleuchtet & 24/7 videoüberwacht</div>
+                </div>
+              </div>
+              <div class="gallery-sub" style="background: #1e3a5f; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 700;">
+                Klimatisierter Shuttlebus
+              </div>
+              <div class="gallery-sub" style="background: #254b77; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 700;">
+                Schranken & Zufahrtskontrolle
+              </div>
+            </div>
+
+            <!-- Detail Tabs -->
+            <div class="detail-tabs-nav">
+              <button class="detail-tab-btn active" data-tab="tab-overview">Übersicht & Ausstattung</button>
+              <button class="detail-tab-btn" data-tab="tab-flow">Ablauf am Reisetag</button>
+              <button class="detail-tab-btn" data-tab="tab-location">Lage & Entfernungen</button>
+              <button class="detail-tab-btn" data-tab="tab-faqs">Häufige Fragen</button>
+            </div>
+
+            <!-- Tab Pane 1: Overview -->
+            <div class="detail-tab-pane active" id="tab-overview">
+              <div class="card card-padded" style="margin-bottom: var(--space-6);">
+                <h3 style="font-size: 18px; font-weight: 800; color: #0c2340; margin-bottom: 12px;">Highlights von Port Parking Kiel</h3>
+                <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 16px;">
+                  Port Parking Kiel ist die meisteingebuchte Parkplatz-Option für Passagiere am Kieler Hafen. Die Anlage befindet sich nur ca. 7 Fahrminuten von den Hauptterminals entfernt und bietet asphaltierte, markierte Stellplätze in einem vollständig umzäunten Gelände.
+                </p>
+                <div class="detail-highlights-grid">
+                  <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                    <span style="color: #10b981;">✓</span> <strong>Schlüssel behalten:</strong> Sie behalten Ihren PKW-Schlüssel
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                    <span style="color: #10b981;">✓</span> <strong>Transfer:</strong> Shuttle für bis zu 4 Personen inklusive
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                    <span style="color: #10b981;">✓</span> <strong>Sicherheit:</strong> HD-Kameraüberwachung & Wachdienst
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                    <span style="color: #10b981;">✓</span> <strong>Barrierefrei:</strong> Niederflur-Shuttlebusse vorhanden
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Pane 2: Flow -->
+            <div class="detail-tab-pane" id="tab-flow">
+              <div class="card card-padded" style="margin-bottom: var(--space-6);">
+                <h3 style="font-size: 18px; font-weight: 800; color: #0c2340; margin-bottom: 14px;">So funktioniert das Parken bei Port Parking Kiel</h3>
+                <div class="process-steps-list">
+                  <div class="process-step-item">
+                    <div class="process-step-badge">1</div>
+                    <div>
+                      <div class="process-step-title">Anreise & Parkplatz-Einfahrt</div>
+                      <div class="process-step-desc">Fahren Sie am Abfahrtstag direkt zur Uferstraße 12 in Kiel. An der Einfahrtsschranke scannen Sie den QR-Code aus Ihrer Buchungsbestätigung.</div>
+                    </div>
+                  </div>
+                  <div class="process-step-item">
+                    <div class="process-step-badge">2</div>
+                    <div>
+                      <div class="process-step-title">Fahrzeug abstellen & Schlüssel mitnehmen</div>
+                      <div class="process-step-desc">Parken Sie auf einem freien Stellplatz. Ihren Autoschlüssel behalten Sie während Ihres gesamten Urlaubs bei sich.</div>
+                    </div>
+                  </div>
+                  <div class="process-step-item">
+                    <div class="process-step-badge">3</div>
+                    <div>
+                      <div class="process-step-title">Kostenloser Shuttle-Transfer ans Schiff (ca. 7 Min.)</div>
+                      <div class="process-step-desc">Unser Fahrer lädt Ihr Gepäck in den Shuttlebus ein und fährt Sie direkt vor den Eingang des gebuchten Terminals (z.B. Ostseekai).</div>
+                    </div>
+                  </div>
+                  <div class="process-step-item">
+                    <div class="process-step-badge">4</div>
+                    <div>
+                      <div class="process-step-title">Rückkehr nach der Kreuzfahrt</div>
+                      <div class="process-step-desc">Nachdem Sie Ihr Gepäck im Terminal abgeholt haben, begeben Sie sich zum Shuttle-Treffpunkt. Der Bus bringt Sie zügig zurück zu Ihrem Auto.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab Pane 3: Location -->
+            <div class="detail-tab-pane" id="tab-location">
+              <div class="card card-padded" style="margin-bottom: var(--space-6);">
+                <h3 style="font-size: 18px; font-weight: 800; color: #0c2340; margin-bottom: 12px;">Terminal-Entfernungen von Port Parking Kiel</h3>
+                <div class="map-widget-mockup">
+                  <div style="font-weight: 700;">Standort: Uferstraße 12, 24103 Kiel</div>
+                  <div style="font-size: 12px; opacity: 0.8; margin-top: 4px;">GPS: 54.3291° N, 10.1402° E · Direkte Anbindung an die B76</div>
+                </div>
+                <table class="map-terminal-distances-table">
+                  <thead>
+                    <tr>
+                      <th>Kreuzfahrtterminal</th>
+                      <th>Entfernung</th>
+                      <th>Fahrzeit mit Shuttle</th>
+                      <th>Häufige Reedereien</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Ostseekai Kiel</strong></td>
+                      <td>3.8 km</td>
+                      <td>ca. 7 Minuten</td>
+                      <td>Mein Schiff, AIDAprima</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Schwedenkai Kiel</strong></td>
+                      <td>3.2 km</td>
+                      <td>ca. 5 Minuten</td>
+                      <td>Stena Line, Kreuzfahrtschiffe</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Norwegenkai Kiel</strong></td>
+                      <td>4.1 km</td>
+                      <td>ca. 8 Minuten</td>
+                      <td>Color Line, Kreuzfahrtschiffe</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Ostuferhafen Kiel</strong></td>
+                      <td>8.5 km</td>
+                      <td>ca. 14 Minuten</td>
+                      <td>MSC Cruises</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab Pane 4: FAQs -->
+            <div class="detail-tab-pane" id="tab-faqs">
+              <div class="card card-padded" style="margin-bottom: var(--space-6);">
+                <h3 style="font-size: 18px; font-weight: 800; color: #0c2340; margin-bottom: 12px;">Häufige Fragen zu Port Parking Kiel</h3>
+                <div class="faq-list">
+                  <div class="faq-item open">
+                    <button class="faq-question">
+                      <span>Wann sollte ich am Parkplatz ankommen?</span>
+                      <span class="faq-icon-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                      Wir empfehlen, ca. 2,5 bis 3 Stunden vor Abfahrt des Kreuzfahrtschiffes am Parkplatz einzutreffen. So haben Sie reichlich Zeit für Shuttle-Fahrt und Check-in.
+                    </div>
+                  </div>
+                  <div class="faq-item">
+                    <button class="faq-question">
+                      <span>Sind Kindersitze im Shuttlebus vorhanden?</span>
+                      <span class="faq-icon-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                      Ja, in allen Shuttlebussen stehen Kindersitze und Sitzerhöhungen für alle Altersgruppen kostenlos zur Verfügung.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sticky Sidebar Booking Box -->
+          <aside>
+            <div class="sticky-booking-card">
+              <div class="booking-card-price-header">
+                <div style="font-size: 12px; color: #64748b; margin-bottom: 2px;">Gesamtpreis für 8 Tage Parken</div>
+                <div class="booking-card-price-total js-base-price">139,00 €</div>
+                <div style="font-size: 12px; color: #10b981; font-weight: 700; margin-top: 4px;">Inkl. MwSt. & Shuttle für alle Mitreisenden</div>
+              </div>
+
+              <div style="background: #f8fafc; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 12px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                  <span style="color: #64748b;">Hafen / Terminal:</span>
+                  <strong style="color: #0c2340;">Kiel (Ostseekai)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                  <span style="color: #64748b;">Anreise:</span>
+                  <strong style="color: #0c2340;">12.06.2027</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">Rückkehr:</span>
+                  <strong style="color: #0c2340;">19.06.2027</strong>
+                </div>
+              </div>
+
+              <ul class="booking-card-specs-list">
+                <li><span style="color: #10b981;">✓</span> 100% kostenlose Stornierung bis 24h vor Anreise</li>
+                <li><span style="color: #10b981;">✓</span> Sofortige Buchungsbestätigung per E-Mail</li>
+                <li><span style="color: #10b981;">✓</span> Garantierter reservierter Stellplatz</li>
+              </ul>
+
+              <button class="btn btn-primary btn-lg btn-full" data-goto="screen-checkout-step1" data-service="shuttle">
+                Jetzt buchen – 139,00 €
+              </button>
+
+              <div style="text-align: center; font-size: 11px; color: #94a3b8; margin-top: 10px;">
+                Keine versteckten Kosten · SSL-verschlüsselt
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 4: DETAILSEITE VALET (KIEL VALET SERVICE)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-detail-valet">
+        <div class="detail-hero-bar">
+          <div class="container">
+            <div class="breadcrumbs">
+              <a href="#" data-goto="screen-home">Startseite</a>
+              <span>›</span>
+              <a href="#" data-goto="screen-kiel-search">Kiel</a>
+              <span>›</span>
+              <span style="color: var(--color-navy-900); font-weight: 600;">Kiel Valet Service Direkt</span>
+            </div>
+            <div class="detail-headline-row">
+              <div>
+                <h1 class="detail-title">Kiel Valet Service Direkt – Fahrzeugübergabe am Terminal</h1>
+                <div class="detail-tags-row">
+                  <span class="badge badge-featured">Premium Komfort</span>
+                  <span class="badge badge-green">Kein Shuttlebus nötig</span>
+                  <span class="badge badge-blue">Tiefgarage inklusive</span>
+                  <span style="font-size: 13px; color: #f59e0b; font-weight: 700;">★ 4.8 (890 Bewertungen)</span>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-outline btn-sm" data-goto="screen-kiel-search">← Zurück zur Übersicht</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container detail-layout-grid">
+          <div>
+            <div class="card card-padded" style="margin-bottom: var(--space-6);">
+              <h3 style="font-size: 18px; font-weight: 800; color: #0c2340; margin-bottom: 12px;">So einfach funktioniert der Valet-Service</h3>
+              <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 16px;">
+                Sparen Sie sich die Suche nach einem Parkplatz und den Transfer mit dem Shuttlebus. Beim Valet-Parking fahren Sie mit Ihrem Auto direkt vor das gebuchte Kreuzfahrtterminal.
+              </p>
+
+              <div class="process-steps-list">
+                <div class="process-step-item">
+                  <div class="process-step-badge">1</div>
+                  <div>
+                    <div class="process-step-title">Direkte Anfahrt zum Kreuzfahrtterminal</div>
+                    <div class="process-step-desc">Fahren Sie am Abfahrtstag direkt vor das Abfahrtsterminal (z.B. Ostseekai Kiel).</div>
+                  </div>
+                </div>
+                <div class="process-step-item">
+                  <div class="process-step-badge">2</div>
+                  <div>
+                    <div class="process-step-title">Fahrzeugübergabe & Check-in Protokoll</div>
+                    <div class="process-step-desc">Ein geschulter, versicherter Mitarbeiter empfängt Sie persönlich. Es wird ein kurzes digitales Übergabeprotokoll (Kilometerstand, Zustand) erstellt.</div>
+                  </div>
+                </div>
+                <div class="process-step-item">
+                  <div class="process-step-badge">3</div>
+                  <div>
+                    <div class="process-step-title">Sichere Einlagerung in der Tiefgarage</div>
+                    <div class="process-step-desc">Ihr Fahrzeug wird unmittelbar in unser wettergeschütztes, videoüberwachtes Parkhaus überführt und sicher geparkt.</div>
+                  </div>
+                </div>
+                <div class="process-step-item">
+                  <div class="process-step-badge">4</div>
+                  <div>
+                    <div class="process-step-title">Fahrzeug bereitgestellt bei Rückkehr</div>
+                    <div class="process-step-desc">Nach dem Verlassen des Schiffes steht Ihr Wagen pünktlich und fahrbereit am Terminalausgang für Sie bereit.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside>
+            <div class="sticky-booking-card">
+              <div class="booking-card-price-header">
+                <div style="font-size: 12px; color: #64748b; margin-bottom: 2px;">Gesamtpreis für 8 Tage Valet Parking</div>
+                <div class="booking-card-price-total js-base-price">179,00 €</div>
+                <div style="font-size: 12px; color: #10b981; font-weight: 700; margin-top: 4px;">Inkl. Vollkasko-Fahrerschutz & Tiefgarage</div>
+              </div>
+
+              <ul class="booking-card-specs-list">
+                <li><span style="color: #10b981;">✓</span> 0 Minuten Fußweg oder Shuttle</li>
+                <li><span style="color: #10b981;">✓</span> Gepäckausladung direkt am Terminal</li>
+                <li><span style="color: #10b981;">✓</span> Digitales Zustandsprotokoll</li>
+                <li><span style="color: #10b981;">✓</span> Kostenlos stornierbar bis 24h vorher</li>
+              </ul>
+
+              <button class="btn btn-primary btn-lg btn-full" data-goto="screen-checkout-step1" data-service="valet">
+                Valet-Service buchen – 179,00 €
+              </button>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 5: BESTELLABLAUF SCHRITT 1 (DATEN & FAHRZEUG)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-checkout-step1">
+        <div class="checkout-header-bar">
+          <div class="container">
+            <div class="checkout-stepper">
+              <div class="stepper-step active">
+                <span class="step-circle">1</span>
+                <span>Reise- & Fahrzeugdaten</span>
+              </div>
+              <div class="stepper-line"></div>
+              <div class="stepper-step">
+                <span class="step-circle">2</span>
+                <span>Zahlung & Schutz</span>
+              </div>
+              <div class="stepper-line"></div>
+              <div class="stepper-step">
+                <span class="step-circle">3</span>
+                <span>Bestätigung</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container checkout-grid">
+          <!-- Form Section -->
+          <div>
+            <form id="checkoutStep1Form">
+              <!-- Contact Card -->
+              <div class="checkout-card">
+                <h2 class="checkout-card-title">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  1. Ihre Kontaktdaten
+                </h2>
+
+                <div class="form-row-3">
+                  <div class="form-group">
+                    <label class="form-label" for="custSalutation">Anrede <span class="required">*</span></label>
+                    <select class="form-select" id="custSalutation" required>
+                      <option value="Herr" selected>Herr</option>
+                      <option value="Frau">Frau</option>
+                      <option value="Divers">Divers</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custFirstName">Vorname <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="custFirstName" value="Max" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custLastName">Nachname <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="custLastName" value="Mustermann" required>
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="custEmail">E-Mail-Adresse für Bestätigung <span class="required">*</span></label>
+                    <input type="email" class="form-input" id="custEmail" value="max.mustermann@kreuzfahrt-kiel.de" required>
+                    <div class="form-hint">Hierhin wird Ihr Buchungsvoucher gesendet.</div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custPhone">Mobilnummer (für Shuttle-Kontakt) <span class="required">*</span></label>
+                    <input type="tel" class="form-input" id="custPhone" value="+49 171 1234567" required>
+                    <div class="form-hint">Zur Abstimmung am Anreise- und Rückreisetag.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vehicle Card -->
+              <div class="checkout-card">
+                <h2 class="checkout-card-title">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                  2. Angaben zu Ihrem Fahrzeug
+                </h2>
+
+                <div class="form-row-3">
+                  <div class="form-group">
+                    <label class="form-label" for="custPlate">Amtliches Kennzeichen <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="custPlate" value="HH-KP 2027" placeholder="z.B. KI-AB 123" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custModel">Marke & Modell <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="custModel" value="VW Passat Variant" placeholder="z.B. VW Golf" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custPassengers">Anzahl Reisende (für Shuttle) <span class="required">*</span></label>
+                    <select class="form-select" id="custPassengers">
+                      <option value="1">1 Person</option>
+                      <option value="2" selected>2 Personen</option>
+                      <option value="3">3 Personen</option>
+                      <option value="4">4 Personen</option>
+                      <option value="5">5+ Personen (Auf Anfrage)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="custArrivalTime">Geplante Ankunftszeit am Parkplatz <span class="required">*</span></label>
+                    <input type="time" class="form-input" id="custArrivalTime" value="11:30" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="custTerminal">Kreuzfahrtterminal</label>
+                    <input type="text" class="form-input" id="custTerminal" value="Ostseekai Kiel" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Weiter zu Schritt 2: Bezahlung →
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Order Summary Sticky -->
+          <aside>
+            <div class="sticky-booking-card">
+              <h3 style="font-size: 16px; font-weight: 700; color: #0c2340; margin-bottom: 12px;">Ihre Buchungsübersicht</h3>
+              <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 12px; margin-bottom: 12px;">
+                <strong class="js-provider-title" style="font-size: 15px; color: #0c2340;">Port Parking Kiel</strong>
+                <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Kiel (Ostseekai) · Shuttle-Service inklusive</div>
+              </div>
+
+              <div style="font-size: 13px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">Anreise:</span>
+                  <span style="font-weight: 600;">12.06.2027</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">Rückkehr:</span>
+                  <span style="font-weight: 600;">19.06.2027</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">Dauer:</span>
+                  <span style="font-weight: 600;">8 Tage</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: #64748b;">Schiff:</span>
+                  <span style="font-weight: 600;">Mein Schiff 1</span>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid #e2e8f0; padding-top: 12px; margin-top: 12px; display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-size: 15px; font-weight: 700; color: #0c2340;">Gesamtpreis:</span>
+                <span class="js-total-price" style="font-size: 24px; font-weight: 800; color: #0c2340;">139,00 €</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 6: BESTELLABLAUF SCHRITT 2 (ZAHLUNG & SCHUTZ)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-checkout-step2">
+        <div class="checkout-header-bar">
+          <div class="container">
+            <div class="checkout-stepper">
+              <div class="stepper-step completed">
+                <span class="step-circle">✓</span>
+                <span>Reise- & Fahrzeugdaten</span>
+              </div>
+              <div class="stepper-line completed"></div>
+              <div class="stepper-step active">
+                <span class="step-circle">2</span>
+                <span>Zahlung & Schutz</span>
+              </div>
+              <div class="stepper-line"></div>
+              <div class="stepper-step">
+                <span class="step-circle">3</span>
+                <span>Bestätigung</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container checkout-grid">
+          <div>
+            <form id="checkoutStep2Form">
+              <!-- Allianz Protection Upsell Box -->
+              <div class="checkout-card" style="border: 2px solid #0077b6; background: #f0f9ff;">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;">
+                  <div style="display: flex; align-items: flex-start; gap: 12px;">
+                    <input type="checkbox" id="addonProtectionCheck" style="margin-top: 4px; width: 20px; height: 20px; accent-color: #0077b6;">
+                    <div>
+                      <div style="font-weight: 800; font-size: 15px; color: #0c2340;">
+                        Allianz Rundum-Sorglos-Schutz hinzufügen (+9,90 €)
+                      </div>
+                      <p style="font-size: 12px; color: #334155; margin-top: 4px; line-height: 1.5;">
+                        Schützt Sie vor unerwarteten Ereignissen: 100% Kostenübernahme bei kurzfristigem Reiseabbruch, Schlüsselverlust-Versicherung und 24/7 Notfall-Assistance am Hafen.
+                      </p>
+                    </div>
+                  </div>
+                  <img src="downloaded_assets/07_Logos_und_Bilder/Allianz.png" alt="Allianz" style="height: 24px;" onerror="this.style.display='none'">
+                </div>
+              </div>
+
+              <!-- Payment Methods Card -->
+              <div class="checkout-card">
+                <h2 class="checkout-card-title">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                  Zahlungsart auswählen
+                </h2>
+
+                <div class="payment-methods-grid">
+                  <!-- PayPal -->
+                  <div class="payment-method-card selected" data-method="paypal">
+                    <div class="payment-method-header">
+                      <label class="payment-method-label">
+                        <input type="radio" name="paymentOption" checked>
+                        <span>PayPal (Käuferschutz & Express-Buchung)</span>
+                      </label>
+                      <span class="payment-pill" style="background: #003087; color: white;">PayPal</span>
+                    </div>
+                    <div class="payment-method-fields" style="display: block;">
+                      <p style="font-size: 12px; color: #64748b;">
+                        Sie werden nach Klick auf „Zahlungspflichtig buchen“ sicher zu PayPal weitergeleitet, um die Zahlung abzuschließen.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Credit Card -->
+                  <div class="payment-method-card" data-method="creditcard">
+                    <div class="payment-method-header">
+                      <label class="payment-method-label">
+                        <input type="radio" name="paymentOption">
+                        <span>Kreditkarte (Visa, Mastercard, American Express)</span>
+                      </label>
+                      <div style="display: flex; gap: 4px;">
+                        <span class="payment-pill">VISA</span>
+                        <span class="payment-pill">MC</span>
+                      </div>
+                    </div>
+                    <div class="payment-method-fields">
+                      <div class="form-group">
+                        <label class="form-label">Kartennummer</label>
+                        <input type="text" class="form-input" placeholder="4532 •••• •••• 8821">
+                      </div>
+                      <div class="form-row-2">
+                        <div class="form-group">
+                          <label class="form-label">Gültig bis</label>
+                          <input type="text" class="form-input" placeholder="MM/JJ">
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">CVC Prüfziffer</label>
+                          <input type="text" class="form-input" placeholder="123">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SEPA Lastschrift -->
+                  <div class="payment-method-card" data-method="sepa">
+                    <div class="payment-method-header">
+                      <label class="payment-method-label">
+                        <input type="radio" name="paymentOption">
+                        <span>SEPA-Lastschrift</span>
+                      </label>
+                      <span class="payment-pill">SEPA</span>
+                    </div>
+                    <div class="payment-method-fields">
+                      <div class="form-group">
+                        <label class="form-label">IBAN</label>
+                        <input type="text" class="form-input" placeholder="DE89 3704 0044 0532 0130 00">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Legal Checkboxes -->
+              <div class="checkout-card">
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <label class="checkbox-item">
+                    <input type="checkbox" id="checkTermsAgb" checked required>
+                    <span>Ich habe die <strong>AGB</strong> und die <strong>Datenschutzerklärung</strong> gelesen und erkläre mich mit diesen einverstanden.</span>
+                  </label>
+                  <label class="checkbox-item">
+                    <input type="checkbox" id="checkTermsCancellation" checked required>
+                    <span>Ich stimme ausdrücklich zu, dass mit der Ausführung der Dienstleistung vor Ablauf der Widerrufsfrist begonnen wird.</span>
+                  </label>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button type="button" class="btn btn-outline" data-goto="screen-checkout-step1">← Zurück zu Schritt 1</button>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  Zahlungspflichtig buchen (<span class="js-total-price">139,00 €</span>)
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Sticky Summary -->
+          <aside>
+            <div class="sticky-booking-card">
+              <h3 style="font-size: 16px; font-weight: 700; color: #0c2340; margin-bottom: 12px;">Endbetrag</h3>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px;">
+                <span style="color: #64748b;">Parkgebühr (8 Tage):</span>
+                <span class="js-base-price" style="font-weight: 600;">139,00 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px;">
+                <span style="color: #64748b;">Shuttle-Transfer:</span>
+                <span style="font-weight: 600; color: #10b981;">0,00 € (Inklusive)</span>
+              </div>
+              <div style="border-top: 1px solid #e2e8f0; padding-top: 12px; margin-top: 12px; display: flex; justify-content: space-between; align-items: baseline;">
+                <span style="font-size: 16px; font-weight: 800; color: #0c2340;">Zu zahlender Betrag:</span>
+                <span class="js-total-price" style="font-size: 26px; font-weight: 800; color: #0c2340;">139,00 €</span>
+              </div>
+              <div style="font-size: 11px; color: #64748b; margin-top: 8px;">Inkl. 19% gesetzliche MwSt. (22,19 €)</div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 7: BESTELLABLAUF SCHRITT 3 (BESTÄTIGUNG)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-checkout-step3">
+        <div class="container" style="padding-top: 32px; padding-bottom: 48px;">
+          <div class="confirmation-card">
+            <div class="confirmation-icon-circle">✓</div>
+            <h1 style="font-size: 26px; font-weight: 800; color: #0c2340; margin-bottom: 6px;">Vielen Dank für Ihre Buchung, Herr Mustermann!</h1>
+            <p style="font-size: 15px; color: #475569; max-width: 600px; margin: 0 auto;">
+              Ihre Reservierung bei <strong>Port Parking Kiel</strong> wurde erfolgreich abgeschlossen und verbindlich bestätigt.
+            </p>
+
+            <div class="confirmation-code-box">
+              <div>
+                <div style="font-size: 11px; color: #64748b; text-transform: uppercase;">Ihre Buchungsnummer</div>
+                <div class="confirmation-code-val">KP-2027-018453</div>
+              </div>
+              <button class="btn btn-outline btn-sm" data-copy="KP-2027-018453">Kopieren</button>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 12px; margin: 20px 0 30px; flex-wrap: wrap;">
+              <button class="btn btn-primary js-open-email-modal">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                Bestätigungs-E-Mail anzeigen
+              </button>
+              <button class="btn btn-outline" onclick="window.print()">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                Buchungsvoucher drucken (PDF)
+              </button>
+            </div>
+
+            <div style="text-align: left; background: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0;">
+              <h3 style="font-size: 16px; font-weight: 700; color: #0c2340; margin-bottom: 14px;">Anreise-Checkliste für den 12.06.2027</h3>
+              <div class="confirmation-checklist-grid">
+                <div>
+                  <strong style="color: #0c2340;">Parkplatzadresse:</strong><br>
+                  Port Parking Kiel<br>
+                  Uferstraße 12, 24103 Kiel<br>
+                  Telefon Shuttle-Fahrer: <strong>0431 / 99 77 12</strong>
+                </div>
+                <div>
+                  <strong style="color: #0c2340;">Ihre gebuchten Zeiten:</strong><br>
+                  Anreise: 12.06.2027 um 11:30 Uhr<br>
+                  Rückkehr: 19.06.2027 nach Schiffsankunft<br>
+                  Terminal: Ostseekai Kiel (Mein Schiff 1)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 8: AFFILIATE-PARTNER PORTAL
+           ========================================================================== -->
+      <main class="app-screen" id="screen-affiliate">
+        <div class="partner-hero">
+          <div class="container">
+            <span class="badge badge-yellow" style="margin-bottom: 12px;">KreuzfahrtParkplatz.de Partnerprogramm</span>
+            <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">Verdienen Sie mit jeder Parkplatzbuchung</h1>
+            <p style="font-size: 16px; opacity: 0.9; max-width: 680px; margin: 0 auto;">
+              Das lukrative Partnerprogramm für Reisebüros, Kreuzfahrt-Blogger und Reiseportale.
+            </p>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="partner-stats-grid">
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">8% – 12%</div>
+              <div class="partner-stat-label">Provision pro Buchung</div>
+            </div>
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">60 Tage</div>
+              <div class="partner-stat-label">Cookie-Laufzeit</div>
+            </div>
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">14,20 €</div>
+              <div class="partner-stat-label">Ø Verdienst pro Vermittlung</div>
+            </div>
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">Monatlich</div>
+              <div class="partner-stat-label">Pünktliche Auszahlung</div>
+            </div>
+          </div>
+
+          <!-- Registration Form -->
+          <div class="b2b-form-card" style="margin-bottom: 48px;">
+            <h2 style="font-size: 22px; font-weight: 800; color: #0c2340; margin-bottom: 8px;">Als Affiliate-Partner registrieren</h2>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 24px;">Starten Sie noch heute. Die Freischaltung erfolgt innerhalb von 24 Stunden.</p>
+
+            <form onsubmit="event.preventDefault(); alert('Vielen Dank! Ihre Affiliate-Anmeldung wurde übermittelt. Wir melden uns innerhalb von 24h.');">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Partnertyp <span class="required">*</span></label>
+                  <select class="form-select" required>
+                    <option>Reisebüro / Mobiler Reiseberater</option>
+                    <option>Kreuzfahrt-Blog / Content Creator</option>
+                    <option>Reise- / Vergleichsportal</option>
+                    <option>Kreuzfahrt-Community / Forum</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Website / Social Media URL <span class="required">*</span></label>
+                  <input type="url" class="form-input" placeholder="https://www.mein-kreuzfahrtblog.de" required>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Name / Ansprechpartner <span class="required">*</span></label>
+                  <input type="text" class="form-input" placeholder="Max Mustermann" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">E-Mail-Adresse <span class="required">*</span></label>
+                  <input type="email" class="form-input" placeholder="partner@kreuzfahrt-portal.de" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg">Partnerkonto jetzt beantragen →</button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 9: PARTNER WERDEN (B2B BETREIBER ONBOARDING)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-partner-b2b">
+        <div class="partner-hero">
+          <div class="container">
+            <span class="badge badge-yellow" style="margin-bottom: 12px;">Für Parkplatzbetreiber</span>
+            <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 8px;">Werden Sie Partner von KreuzfahrtParkplatz.de</h1>
+            <p style="font-size: 16px; opacity: 0.9; max-width: 680px; margin: 0 auto;">
+              Steigern Sie Ihre Auslastung nachhaltig. Erreichen Sie über 45.000 kaufkräftige Kreuzfahrtgäste ohne Marketing-Risiko.
+            </p>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="partner-stats-grid">
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">+35%</div>
+              <div class="partner-stat-label">Höhere Stellplatz-Auslastung</div>
+            </div>
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">0 €</div>
+              <div class="partner-stat-label">Keine Fix- oder Einrichtungsgebühren</div>
+            </div>
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">100%</div>
+              <div class="partner-stat-label">Preishoheit bei Ihnen</div>
+            </div>
+            <div class="partner-stat-card">
+              <div class="partner-stat-number">API & CSV</div>
+              <div class="partner-stat-label">Flexible Buchungsschnittstellen</div>
+            </div>
+          </div>
+
+          <!-- Onboarding Formular (entsprechend KreuzfahrtParkplatz_Anbieter_Datenblatt.xlsx) -->
+          <div class="b2b-form-card" style="margin-bottom: 48px;">
+            <h2 style="font-size: 22px; font-weight: 800; color: #0c2340; margin-bottom: 8px;">Anbieter-Onboarding & Parkplatz registrieren</h2>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 24px;">Gemäß unserem offiziellen Betreiber-Erfassungsbogen.</p>
+
+            <form onsubmit="event.preventDefault(); alert('Vielen Dank! Ihre Betreiber-Daten wurden erfasst. Unser Partnermanagement wird sich zur Verifikation melden.');">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Firmenname laut Handelsregister <span class="required">*</span></label>
+                  <input type="text" class="form-input" placeholder="z.B. Port Parking Kiel GmbH" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Anzeigename auf dem Portal <span class="required">*</span></label>
+                  <input type="text" class="form-input" placeholder="z.B. Port Parking Kiel" required>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Bedienter Hafen <span class="required">*</span></label>
+                  <select class="form-select" required>
+                    <option>Hafen Kiel (Ostsee)</option>
+                    <option>Hafen Hamburg</option>
+                    <option>Hafen Warnemünde / Rostock</option>
+                    <option>Hafen Bremerhaven</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Angebotsart <span class="required">*</span></label>
+                  <select class="form-select" required>
+                    <option>Parkplatz mit Shuttle-Transfer</option>
+                    <option>Valet Parking (Terminal-Übergabe)</option>
+                    <option>Parkhaus / Überdacht</option>
+                    <option>Kombination (Shuttle & Valet)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row-3">
+                <div class="form-group">
+                  <label class="form-label">Stellplatzanzahl für Kreuzfahrer</label>
+                  <input type="number" class="form-input" placeholder="z.B. 250">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Entfernung zum Terminal (km)</label>
+                  <input type="text" class="form-input" placeholder="z.B. 3.8">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Shuttle-Taktung (Minuten)</label>
+                  <input type="text" class="form-input" placeholder="z.B. Nach Bedarf / alle 15 Min">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg">Betreiber-Registrierung absenden →</button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           SCREEN 10: SEO LANDINGPAGE (KIEL OSTSEEKAI)
+           ========================================================================== -->
+      <main class="app-screen" id="screen-seo-terminal">
+        <div class="detail-hero-bar">
+          <div class="container">
+            <div class="breadcrumbs">
+              <a href="#" data-goto="screen-home">Startseite</a>
+              <span>›</span>
+              <a href="#" data-goto="screen-kiel-search">Kiel</a>
+              <span>›</span>
+              <span style="color: var(--color-navy-900); font-weight: 600;">Ostseekai Kiel</span>
+            </div>
+            <h1 class="detail-title">Parken am Kreuzfahrtterminal Ostseekai Kiel</h1>
+            <p style="color: #64748b; font-size: 15px;">Der umfassende Ratgeber zu Parkplätzen, Shuttle-Transfers und Valet-Parking direkt am Ostseekai.</p>
+          </div>
+        </div>
+
+        <div class="container" style="padding: 32px 0 60px;">
+          <div style="background: white; border-radius: 12px; padding: 28px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+            <h2 style="font-size: 20px; font-weight: 800; color: #0c2340; margin-bottom: 12px;">Wissenswertes zum Ostseekai Kiel</h2>
+            <p style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 16px;">
+              Der Ostseekai (Liegeplatz 27 und 28) ist das modernste und meistfrequentierte Kreuzfahrtterminal im Kieler Hafen. Hier legen vor allem die Schiffe von <strong>AIDA Cruises</strong> (u.a. AIDAnova, AIDAprima, AIDAbella) und <strong>TUI Cruises (Mein Schiff 1, 4, 6)</strong> an. Durch die Innenstadtlage sind Parkplätze direkt am Pier streng limitiert und meist Monate im Voraus ausgebucht.
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button class="btn btn-primary" data-goto="screen-kiel-search">Alle Parkplätze am Ostseekai vergleichen →</button>
+              <button class="btn btn-outline" data-goto="screen-detail-shuttle">Port Parking Kiel ansehen</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ==========================================================================
+           MODAL: AUTOMATISCHE BUCHUNGS-E-MAIL PREVIEW
+           ========================================================================== -->
+      <div class="modal-overlay" id="emailPreviewModal">
+        <div class="modal-content-window">
+          <div class="modal-header">
+            <div style="font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              Automatische Buchungsbestätigungs-E-Mail (Systemvorlage)
+            </div>
+            <button class="js-close-email-modal" style="color: white; font-size: 20px; font-weight: bold;">✕</button>
+          </div>
+
+          <div class="email-view-body">
+            <div class="email-paper-card">
+              <!-- Email Header Meta -->
+              <div style="border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-bottom: 20px; font-size: 12px; color: #64748b;">
+                <div><strong>Von:</strong> buchung@kreuzfahrtparkplatz.de &lt;KreuzfahrtParkplatz.de Service&gt;</div>
+                <div><strong>An:</strong> max.mustermann@kreuzfahrt-kiel.de</div>
+                <div><strong>Betreff:</strong> Ihre Buchungsbestätigung KP-2027-018453 – Port Parking Kiel</div>
+              </div>
+
+              <div style="text-align: center; margin-bottom: 24px;">
+                <img src="downloaded_assets/06_Logos/Kreuzfahrtparkplatz_de_Logo.png" alt="KreuzfahrtParkplatz.de" style="height: 38px; margin: 0 auto;" onerror="this.src='downloaded_assets/06_Logos/Kreuzfahrt_Parkplatz_Logo.png'">
+              </div>
+
+              <h2 style="font-size: 20px; font-weight: 800; color: #0c2340; margin-bottom: 10px;">Ihre Buchung ist verbindlich bestätigt!</h2>
+              <p style="font-size: 14px; color: #475569; margin-bottom: 18px;">
+                Sehr geehrter Herr Mustermann,<br><br>
+                vielen Dank für Ihre Buchung bei <strong>KreuzfahrtParkplatz.de</strong>. Nachfolgend erhalten Sie alle relevanten Details für Ihre Anreise zum Kreuzfahrthafen Kiel.
+              </p>
+
+              <!-- Voucher Summary Box -->
+              <div style="background: #f1f5fa; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 18px; margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; margin-bottom: 10px;">
+                  <span style="font-size: 12px; font-weight: 700; color: #64748b; text-transform: uppercase;">Buchungscode</span>
+                  <strong style="font-size: 18px; color: #0c2340; font-family: monospace;">KP-2027-018453</strong>
+                </div>
+                <div style="font-size: 13px; line-height: 1.8;">
+                  <div><strong>Parkplatz-Anbieter:</strong> Port Parking Kiel</div>
+                  <div><strong>Adresse:</strong> Uferstraße 12, 24103 Kiel</div>
+                  <div><strong>Fahrzeug:</strong> HH-KP 2027 (VW Passat Variant)</div>
+                  <div><strong>Reisezeitraum:</strong> 12.06.2027 (11:30 Uhr) bis 19.06.2027</div>
+                  <div><strong>Schiff / Terminal:</strong> Mein Schiff 1 / Ostseekai Kiel</div>
+                  <div><strong>Zahlungsstatus:</strong> Bezahlt via PayPal (139,00 €)</div>
+                </div>
+              </div>
+
+              <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 12px; font-size: 12px; color: #065f46; margin-bottom: 20px;">
+                <strong>Wichtiger Hinweis:</strong> Bitte halten Sie bei der Einfahrt den Barcode auf diesem Dokument oder auf Ihrem Smartphone bereit. Ihr Autoschlüssel verbleibt während der gesamten Reise bei Ihnen!
+              </div>
+
+              <div style="text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 14px;">
+                KreuzfahrtParkplatz.de GmbH · Kundenservice Hotline: 0431 / 99 77 00 · buchung@kreuzfahrtparkplatz.de
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================================================
+           GLOBAL SITE FOOTER
+           ========================================================================== -->
+      <footer class="site-footer">
+        <div class="container">
+          <div class="footer-top">
+            <!-- Col 1: About & Trust -->
+            <div>
+              <div class="site-logo" style="margin-bottom: 16px;">
+                <img src="downloaded_assets/06_Logos/Kreuzfahrtparkplatz_de_Logo.png" alt="KreuzfahrtParkplatz.de" style="height: 38px; filter: brightness(0) invert(1);" onerror="this.src='downloaded_assets/06_Logos/Kreuzfahrt_Parkplatz_Logo.png'">
+              </div>
+              <p style="font-size: 13px; color: #94a3b8; line-height: 1.6; margin-bottom: 16px;">
+                Deutschlands führendes Vergleichs- und Buchungsportal für Parkplätze an allen wichtigen Kreuzfahrthäfen. Sicher, geprüft und mit Bestpreis-Garantie.
+              </p>
+              <div class="footer-partner-badge">
+                <div style="font-size: 11px; font-weight: 700; color: #ffffff;">Offizieller Allianz-Versicherungspartner</div>
+                <div class="footer-trust-logos">
+                  <img src="downloaded_assets/07_Logos_und_Bilder/Allianz.png" alt="Allianz">
+                  <span style="font-size: 11px; color: #94a3b8;">SSL 256-Bit Verschlüsselung</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 2: Häfen & Terminals -->
+            <div>
+              <h3 class="footer-col-title">Kreuzfahrthäfen</h3>
+              <ul class="footer-links">
+                <li><a href="#" data-goto="screen-kiel-search">Hafen Kiel (Ostsee)</a></li>
+                <li><a href="#" data-goto="screen-seo-terminal">Ostseekai Kiel</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Schwedenkai Kiel</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Norwegenkai Kiel</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Ostuferhafen Kiel</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Hafen Hamburg</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Warnemünde / Rostock</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Bremerhaven</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: Services & Reedereien -->
+            <div>
+              <h3 class="footer-col-title">Reedereien & Services</h3>
+              <ul class="footer-links">
+                <li><a href="#" data-goto="screen-kiel-search">AIDA Cruises Parkplätze</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">Mein Schiff (TUI) Parken</a></li>
+                <li><a href="#" data-goto="screen-kiel-search">MSC Cruises Parkplätze</a></li>
+                <li><a href="#" data-goto="screen-detail-shuttle">Shuttle-Transfer Service</a></li>
+                <li><a href="#" data-goto="screen-detail-valet">Valet Parking am Terminal</a></li>
+                <li><a href="#" data-goto="screen-affiliate">Affiliate Partnerprogramm</a></li>
+                <li><a href="#" data-goto="screen-partner-b2b">Für Parkplatzbetreiber</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 4: Kontakt & Support -->
+            <div>
+              <h3 class="footer-col-title">Kundenservice</h3>
+              <p style="font-size: 13px; color: #94a3b8; margin-bottom: 10px;">Fragen zu Ihrer Buchung oder Umbuchung?</p>
+              <div style="font-size: 16px; font-weight: 800; color: #ffb703; margin-bottom: 4px;">0431 / 99 77 00</div>
+              <div style="font-size: 12px; color: #64748b; margin-bottom: 14px;">Mo–So 07:00 – 21:00 Uhr</div>
+              <ul class="footer-links">
+                <li><a href="#" data-goto="screen-home">Häufige Fragen (FAQ)</a></li>
+                <li><a href="#" data-goto="screen-home">Stornierung & Umbuchung</a></li>
+                <li><a href="#" data-goto="screen-home">Impressum & Datenschutz</a></li>
+                <li><a href="#" data-goto="screen-home">AGB für Endkunden</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
+            <div>
+              © 2027 KreuzfahrtParkplatz.de – Alle Rechte vorbehalten.
+            </div>
+            <div class="footer-payment-methods">
+              <span class="payment-pill">PayPal</span>
+              <span class="payment-pill">VISA</span>
+              <span class="payment-pill">Mastercard</span>
+              <span class="payment-pill">Apple Pay</span>
+              <span class="payment-pill">Klarna</span>
+              <span class="payment-pill">SEPA</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FIGMA & DEVELOPER SPECS DRAWER (SLIDE-OUT INSPECTOR)
+       ========================================================================== -->
+  <aside class="dev-specs-drawer" id="devSpecsDrawer">
+    <div class="dev-specs-header">
+      <div style="font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+        <span style="color: #ffb703;">FIGMA</span>
+        <span>Developer Handoff Specs</span>
+      </div>
+      <button id="devSpecsCloseBtn" style="color: white; font-size: 18px;">✕</button>
+    </div>
+
+    <div class="dev-specs-content">
+      <!-- 1. Color Tokens -->
+      <div class="spec-category">
+        <div class="spec-title">1. Design Tokens: Colors</div>
+        <div class="token-swatch-list">
+          <div class="token-swatch">
+            <span class="token-color-preview" style="background: #0c2340;"></span>
+            <div><div>#0C2340</div><small>--color-navy-900 (Brand Primary)</small></div>
+          </div>
+          <div class="token-swatch">
+            <span class="token-color-preview" style="background: #ffb703;"></span>
+            <div><div>#FFB703</div><small>--color-accent-yellow (CTA Action)</small></div>
+          </div>
+          <div class="token-swatch">
+            <span class="token-color-preview" style="background: #0077b6;"></span>
+            <div><div>#0077B6</div><small>--color-blue-accent (Highlights)</small></div>
+          </div>
+          <div class="token-swatch">
+            <span class="token-color-preview" style="background: #10b981;"></span>
+            <div><div>#10B981</div><small>--color-success (Confirmations)</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Typography Scale -->
+      <div class="spec-category">
+        <div class="spec-title">2. Typography Scale</div>
+        <div class="code-box">H1 Hero: 36px / Line: 1.15 / Font: Inter 800
+H2 Sections: 28px / Line: 1.25 / Font: Inter 800
+H3 Cards: 18px / Line: 1.3 / Font: Inter 700
+Body Base: 15px / Line: 1.55 / Regular 400
+Small / Meta: 12px - 13px / SemiBold 600</div>
+      </div>
+
+      <!-- 3. Responsive Breakpoints -->
+      <div class="spec-category">
+        <div class="spec-title">3. Responsive Breakpoints (Auto Layout)</div>
+        <div class="code-box">Desktop: 1440px (Grid Max: 1240px, Gap: 24px)
+Laptop:  1240px (Side Margins: 20px)
+Tablet:  768px (Sidebar collapses to top)
+Mobile:  390px / 375px (Single-column layout)</div>
+      </div>
+
+      <!-- 4. Data Models & API Payload -->
+      <div class="spec-category">
+        <div class="spec-title">4. TypeScript Data Model (Anbieter-Datenblatt)</div>
+        <div class="code-box">interface ProviderListing {
+  id: string;
+  name: string;
+  port: "Kiel" | "Hamburg" | "Warnemuende" | "Bremerhaven";
+  serviceType: "shuttle" | "valet";
+  isCovered: boolean;
+  terminals: string[];
+  distanceKm: number;
+  shuttleTimeMin: number;
+  basePrice8Days: number;
+  features: string[];
+  allianzInsured: boolean;
+  cancellationFreeHours: number;
+}</div>
+      </div>
+
+      <!-- 5. Component Instances -->
+      <div class="spec-category">
+        <div class="spec-title">5. Master Components</div>
+        <ul style="font-size: 12px; color: #94a3b8; display: flex; flex-direction: column; gap: 4px; padding-left: 16px;">
+          <li>SearchEngineWidget (Hero Variant & Compact Variant)</li>
+          <li>ListingCard (Default, Featured, Valet, Mobile)</li>
+          <li>CheckoutStepper (Step 1, Step 2, Step 3)</li>
+          <li>PaymentMethodRadioCard (Selected & Unselected)</li>
+          <li>BookingVoucherCard (Print & Email Mode)</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Prototype Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
